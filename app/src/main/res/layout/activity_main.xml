@@ -6,7 +6,33 @@
     android:layout_height="match_parent"
     tools:context="com.hxx.faceview.MainActivity">
 
-    <com.hxx.faceview.view.FaceView
+    <com.hxx.faceview.view.FaceBackgroundView
+        android:id="@+id/face_bg_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_change_dashed_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="虚线变色" />
+
+        <Button
+            android:id="@+id/btn_scan_success"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="扫描成功" />
+
+        <Button
+            android:id="@+id/btn_scan_fail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="扫描失败" />
+    </LinearLayout>
 </RelativeLayout>

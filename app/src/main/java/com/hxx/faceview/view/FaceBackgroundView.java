@@ -1,16 +1,21 @@
 package com.hxx.faceview.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.Region;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+
+import com.hxx.faceview.R;
 
 /**
  * <ul>
@@ -20,26 +25,32 @@ import android.view.WindowManager;
  * </ul>
  */
 
-public class FaceView extends View {
+public class FaceBackgroundView extends View {
+    private final static String TAG = "FaceBackgroundView";
     private Paint mLinePaint;
     private Paint mFieldPaint;
+    private Paint mBitmapPaint;
     private Paint mBgPaint;
     private Path mFacePath;
     private Path mBgPath;
-    private int defaultColor = Color.GREEN;
+    private int defaultDashedColor = Color.WHITE;
+    private int defaultDashedLength = 20;
     private int mHeight;
     private int mWidth;
+    private ResultStatus mStatus = ResultStatus.SCANNING;
+    private Bitmap mSuccessBitmap;
+    private Rect mFieldDst;
 
-    public FaceView(Context context) {
+    public FaceBackgroundView(Context context) {
         super(context);
         onFinishInflate();
     }
 
-    public FaceView(Context context, AttributeSet attrs) {
+    public FaceBackgroundView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public FaceView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FaceBackgroundView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -48,22 +59,36 @@ public class FaceView extends View {
         super.onFinishInflate();
         WindowManager wm = (WindowManager) getContext()
                 .getSystemService(Context.WINDOW_SERVICE);
-        int width = wm.getDefaultDisplay().getWidth();
-        int height = wm.getDefaultDisplay().getHeight();
-        mHeight = height;
-        mWidth = width;
+        mWidth = wm.getDefaultDisplay().getWidth();
+        mHeight = wm.getDefaultDisplay().getHeight();
         initPath();
         initPaint();
-        Log.e("111", "mHeight-->" + mHeight + "    mWidth-->" + mWidth);
+        initImage();
+        Log.e(TAG, "mHeight-->" + mHeight + "    mWidth-->" + mWidth);
+    }
 
+    private void initImage() {
+        mSuccessBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_result_success);
+        mFieldDst = new Rect(mWidth / 3, mWidth / 2, mWidth * 2 / 3, mWidth * 5 / 6);
+
+    }
+
+    public void changeResultState(ResultStatus status) {
+        this.mStatus = status;
+        invalidate();
+    }
+
+    public void changeDashedColor(int color) {
+        mLinePaint.setColor(color);
+        invalidate();
     }
 
     private void initPaint() {
         mLinePaint = new Paint();
-        mLinePaint.setColor(Color.WHITE);
+        mLinePaint.setColor(defaultDashedColor);
         mLinePaint.setStyle(Paint.Style.STROKE);
-        mLinePaint.setStrokeWidth(20);
-        mLinePaint.setPathEffect(new DashPathEffect(new float[]{20, 20}, 0));
+        mLinePaint.setStrokeWidth(defaultDashedLength);
+        mLinePaint.setPathEffect(new DashPathEffect(new float[]{defaultDashedLength, defaultDashedLength}, 0));
 
         mFieldPaint = new Paint();
         mFieldPaint.setColor(Color.TRANSPARENT);
@@ -73,6 +98,8 @@ public class FaceView extends View {
         mBgPaint = new Paint();
         mBgPaint.setColor(Color.BLACK);
         mBgPaint.setStyle(Paint.Style.FILL);
+
+        mBitmapPaint = new Paint();
     }
 
     private void initPath() {
@@ -95,10 +122,20 @@ public class FaceView extends View {
         super.onDraw(canvas);
         //画虚线
         canvas.drawPath(mFacePath, mLinePaint);
-        //画透明区域
-        canvas.drawPath(mFacePath, mFieldPaint);
+        if (mStatus == ResultStatus.SUCCESS) {
+            canvas.drawBitmap(mSuccessBitmap, null, mFieldDst, mBitmapPaint);
+        } else if (mStatus == ResultStatus.SCANNING) {
+            //画透明区域
+            canvas.drawPath(mFacePath, mFieldPaint);
+        }
         //画背景
         canvas.clipPath(mFacePath, Region.Op.DIFFERENCE);
         canvas.drawPath(mBgPath, mBgPaint);
+    }
+
+    public enum ResultStatus {
+        SUCCESS,
+        FAIL,
+        SCANNING
     }
 }
