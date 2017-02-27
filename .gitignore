@@ -10,8 +10,9 @@
 
 # Generated files
 bin/
+build/
 gen/
-out/
+obj/
 
 # Gradle files
 .gradle/
@@ -34,7 +35,7 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
+.idea/
 
 # Keystore files
 *.jks
