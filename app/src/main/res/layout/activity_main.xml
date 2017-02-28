@@ -18,21 +18,21 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_change_dashed_color"
+            android:id="@+id/btn_scanning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="虚线变色" />
+            android:text="@string/btn_scanning" />
 
         <Button
             android:id="@+id/btn_scan_success"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="扫描成功" />
+            android:text="@string/btn_scan_success" />
 
         <Button
             android:id="@+id/btn_scan_fail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="扫描失败" />
+            android:text="@string/btn_scan_fail" />
     </LinearLayout>
 </RelativeLayout>

@@ -19,7 +19,7 @@ import com.hxx.faceview.R;
 
 /**
  * <ul>
- * <li>功能说明：</li>
+ * <li>功能说明：自定义View 绘制人脸登录扫描背景</li>
  * <li>作者：tal on 2017/2/27 0027 15:22 </li>
  * <li>邮箱：houxiangxiang@cibfintech.com</li>
  * </ul>
@@ -78,6 +78,12 @@ public class FaceBackgroundView extends View {
         invalidate();
     }
 
+    public void changeResultState(ResultStatus status, int dashedColor) {
+        mLinePaint.setColor(dashedColor);
+        this.mStatus = status;
+        invalidate();
+    }
+
     public void changeDashedColor(int color) {
         mLinePaint.setColor(color);
         invalidate();
@@ -126,6 +132,8 @@ public class FaceBackgroundView extends View {
             canvas.drawBitmap(mSuccessBitmap, null, mFieldDst, mBitmapPaint);
         } else if (mStatus == ResultStatus.SCANNING) {
             //画透明区域
+            canvas.drawPath(mFacePath, mFieldPaint);
+        } else if (mStatus == ResultStatus.FAIL) {
             canvas.drawPath(mFacePath, mFieldPaint);
         }
         //画背景
