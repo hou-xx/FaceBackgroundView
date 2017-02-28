@@ -9,12 +9,12 @@
 - 闭合图形以外部分画背景测
 
 ## 效果展示
-![](https://github.com/tianqing2117/FaceBackgroundView/tree/master/screenshots/scanning.jpg)
+![](https://raw.githubusercontent.com/tianqing2117/FaceBackgroundView/master/screenshots/scanning.jpg)
 
-![](https://github.com/tianqing2117/FaceBackgroundView/tree/master/screenshots/success.jpg)
+![](https://raw.githubusercontent.com/tianqing2117/FaceBackgroundView/master/screenshots/success.jpg)
 
-![](https://github.com/tianqing2117/FaceBackgroundView/tree/master/screenshots/fail.jpg)
+![](https://raw.githubusercontent.com/tianqing2117/FaceBackgroundView/master/screenshots/fail.jpg)
 ![扫描中][1]
 
 
-  [1]: https://github.com/tianqing2117/FaceBackgroundView/tree/master/screenshots/scanning.jpg
+  [1]: https://raw.githubusercontent.com/tianqing2117/FaceBackgroundView/master/screenshots/scanning.jpg
