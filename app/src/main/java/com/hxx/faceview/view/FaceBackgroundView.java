@@ -15,8 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.hxx.faceview.R;
-
 /**
  * <ul>
  * <li>功能说明：自定义View 绘制人脸登录扫描背景</li>
@@ -38,7 +36,7 @@ public class FaceBackgroundView extends View {
     private int mHeight;
     private int mWidth;
     private ResultStatus mStatus = ResultStatus.SCANNING;
-    private Bitmap mSuccessBitmap;
+    private Bitmap mBitmap;
     private Rect mFieldDst;
 
     public FaceBackgroundView(Context context) {
@@ -63,12 +61,11 @@ public class FaceBackgroundView extends View {
         mHeight = wm.getDefaultDisplay().getHeight();
         initPath();
         initPaint();
-        initImage();
+        initImageField();
         Log.e(TAG, "mHeight-->" + mHeight + "    mWidth-->" + mWidth);
     }
 
-    private void initImage() {
-        mSuccessBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_result_success);
+    private void initImageField() {
         mFieldDst = new Rect(mWidth / 3, mWidth / 2, mWidth * 2 / 3, mWidth * 5 / 6);
     }
 
@@ -80,6 +77,13 @@ public class FaceBackgroundView extends View {
     public void changeResultState(ResultStatus status, int dashedColor) {
         mLinePaint.setColor(dashedColor);
         this.mStatus = status;
+        invalidate();
+    }
+
+    public void changeResultState(ResultStatus status, int dashedColor, int imgResId) {
+        mLinePaint.setColor(dashedColor);
+        this.mStatus = status;
+        mBitmap = BitmapFactory.decodeResource(getResources(), imgResId);
         invalidate();
     }
 
@@ -127,12 +131,13 @@ public class FaceBackgroundView extends View {
         super.onDraw(canvas);
         //画虚线
         canvas.drawPath(mFacePath, mLinePaint);
-        if (mStatus == ResultStatus.SUCCESS) {
-            canvas.drawBitmap(mSuccessBitmap, null, mFieldDst, mBitmapPaint);
+        if (mStatus == ResultStatus.SUCCESS || mStatus == ResultStatus.FAIL) {
+            if (mBitmap == null) {
+                canvas.drawPath(mFacePath, mFieldPaint);
+            } else {
+                canvas.drawBitmap(mBitmap, null, mFieldDst, mBitmapPaint);
+            }
         } else if (mStatus == ResultStatus.SCANNING) {
-            //画透明区域
-            canvas.drawPath(mFacePath, mFieldPaint);
-        } else if (mStatus == ResultStatus.FAIL) {
             canvas.drawPath(mFacePath, mFieldPaint);
         }
         //画背景

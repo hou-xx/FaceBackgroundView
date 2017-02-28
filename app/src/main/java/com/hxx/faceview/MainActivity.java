@@ -28,13 +28,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_scanning:
-                mFaceBg.changeResultState(FaceBackgroundView.ResultStatus.SCANNING,Color.WHITE);
+                mFaceBg.changeResultState(FaceBackgroundView.ResultStatus.SCANNING, Color.WHITE);
                 break;
             case R.id.btn_scan_success:
-                mFaceBg.changeResultState(FaceBackgroundView.ResultStatus.SUCCESS,Color.GREEN);
+                mFaceBg.changeResultState(FaceBackgroundView.ResultStatus.SUCCESS, Color.GREEN, R.drawable.img_result_success);
                 break;
             case R.id.btn_scan_fail:
-                mFaceBg.changeResultState(FaceBackgroundView.ResultStatus.FAIL,Color.RED);
+                mFaceBg.changeResultState(FaceBackgroundView.ResultStatus.FAIL, Color.RED, R.drawable.img_result_fail);
                 break;
         }
 
