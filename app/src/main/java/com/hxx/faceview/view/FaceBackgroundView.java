@@ -6,10 +6,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.Region;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -105,7 +107,9 @@ public class FaceBackgroundView extends View {
         mFieldPaint.setStrokeWidth(5);
 
         mBgPaint = new Paint();
-        mBgPaint.setColor(Color.BLACK);
+//        mBgPaint.setColor(Color.parseColor("#AA000000"));
+        mBgPaint.setShader(new LinearGradient(0,0,0,mHeight,Color.BLACK,Color.WHITE, Shader.TileMode.MIRROR));
+//        LinearGradient
         mBgPaint.setStyle(Paint.Style.FILL);
 
         mBitmapPaint = new Paint();
