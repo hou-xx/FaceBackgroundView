@@ -21,7 +21,7 @@ import com.hxx.faceview.R;
  * <ul>
  * <li>功能说明：自定义View 绘制人脸登录扫描背景</li>
  * <li>作者：tal on 2017/2/27 0027 15:22 </li>
- * <li>邮箱：houxiangxiang@cibfintech.com</li>
+ * <li>邮箱：hou_xiangxiang@126.com</li>
  * </ul>
  */
 
@@ -70,7 +70,6 @@ public class FaceBackgroundView extends View {
     private void initImage() {
         mSuccessBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_result_success);
         mFieldDst = new Rect(mWidth / 3, mWidth / 2, mWidth * 2 / 3, mWidth * 5 / 6);
-
     }
 
     public void changeResultState(ResultStatus status) {
