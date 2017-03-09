@@ -12,6 +12,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.Region;
 import android.graphics.Shader;
+import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ public class FaceBackgroundView extends View {
     private Path mBgPath;
     private int defaultDashedColor = Color.WHITE;
     private int defaultDashedLength = 20;
+    private int dashedPhase;
     private int mHeight;
     private int mWidth;
     private ResultStatus mStatus = ResultStatus.SCANNING;
@@ -65,6 +67,21 @@ public class FaceBackgroundView extends View {
         initPaint();
         initImageField();
         Log.e(TAG, "mHeight-->" + mHeight + "    mWidth-->" + mWidth);
+        CountDownTimer countDownTimer = new CountDownTimer(1000000000, 150) {
+
+            @Override
+            public void onTick(long l) {
+                dashedPhase = dashedPhase == 0 ? defaultDashedLength : 0;
+                mLinePaint.setPathEffect(new DashPathEffect(new float[]{defaultDashedLength, defaultDashedLength}, dashedPhase));
+                invalidate();
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
+        countDownTimer.start();
     }
 
     private void initImageField() {
@@ -99,7 +116,7 @@ public class FaceBackgroundView extends View {
         mLinePaint.setColor(defaultDashedColor);
         mLinePaint.setStyle(Paint.Style.STROKE);
         mLinePaint.setStrokeWidth(defaultDashedLength);
-        mLinePaint.setPathEffect(new DashPathEffect(new float[]{defaultDashedLength, defaultDashedLength}, 0));
+        mLinePaint.setPathEffect(new DashPathEffect(new float[]{defaultDashedLength, defaultDashedLength}, dashedPhase));
 
         mFieldPaint = new Paint();
         mFieldPaint.setColor(Color.TRANSPARENT);
@@ -108,7 +125,7 @@ public class FaceBackgroundView extends View {
 
         mBgPaint = new Paint();
 //        mBgPaint.setColor(Color.parseColor("#AA000000"));
-        mBgPaint.setShader(new LinearGradient(0,0,0,mHeight,Color.BLACK,Color.WHITE, Shader.TileMode.MIRROR));
+        mBgPaint.setShader(new LinearGradient(0, 0, 0, mHeight, Color.BLACK, Color.WHITE, Shader.TileMode.MIRROR));
 //        LinearGradient
         mBgPaint.setStyle(Paint.Style.FILL);
 
