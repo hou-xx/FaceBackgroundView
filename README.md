@@ -24,6 +24,10 @@
 
 ![扫描中][1] ![扫描成功][2] ![扫描失败][3]
 
+## 动画效果（跑马灯）
+
+![跑马灯][4]
+
 
 
 
@@ -31,3 +35,4 @@
   [1]: https://raw.githubusercontent.com/tianqing2117/FaceBackgroundView/master/screenshots/scanning.jpg
   [2]: https://raw.githubusercontent.com/tianqing2117/FaceBackgroundView/master/screenshots/success.jpg
   [3]:https://raw.githubusercontent.com/tianqing2117/FaceBackgroundView/master/screenshots/fail.jpg
+  [4]:https://raw.githubusercontent.com/tianqing2117/FaceBackgroundView/master/screenshots/animation.gif
