@@ -1,4 +1,4 @@
-# FaceBackgroundView
+# FaceBackgroundView（ 使用 **贝塞尔曲线** 实现 ）
 
 
 
