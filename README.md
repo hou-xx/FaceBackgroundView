@@ -1,4 +1,4 @@
-# FaceBackgroundView（ 使用 **贝塞尔曲线** 实现 ）
+# FaceView（自定义V 使用 **贝塞尔曲线** 实现 面部轮廓）
 
 
 
